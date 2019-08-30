@@ -26,7 +26,7 @@ import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import {connect} from "react-redux";
-import {SignedIn} from "../actions/authActions";
+import {SignIn} from "../actions/authActions";
 import {OpenDrawer} from "../actions/drawerActions";
 
 
@@ -285,6 +285,6 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
     mapStateToProps,
-    {SignedIn, OpenDrawer}
+    {SignIn, OpenDrawer}
 )(withStyles(styles, { withTheme: true })(Header));
 

@@ -26,7 +26,7 @@ import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import {connect} from "react-redux";
-import {SignedIn} from "../actions/authActions";
+import {SignIn} from "../actions/authActions";
 import {CloseDrawer} from "../actions/drawerActions";
 import {Link, NavLink, withRouter} from "react-router-dom";
 import {Dashboard, Help, History, Home, Receipt, Settings, Store, Subject} from "@material-ui/icons";
@@ -173,7 +173,7 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(
     mapStateToProps,
-    {SignedIn,CloseDrawer}
+    {SignIn,CloseDrawer}
 )(
     withRouter(
         withStyles(styles, { withTheme: true })(

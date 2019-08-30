@@ -15,7 +15,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 import withTheme from "@material-ui/styles/withTheme";
 import {connect} from "react-redux";
-import {SignedIn} from "../actions/authActions";
+import {SignIn, TypingAuthFields} from "../actions/authActions";
 
 const styles = {
 
@@ -60,9 +60,21 @@ const styles = {
 
 class Authentification extends Component {
 
+    formData = {};
+
+    handleFormChange = (event) =>{
+        let fieldName = event.target.name;
+        this.props.TypingAuthFields(fieldName);
+        this.formData[fieldName] = event.target.value;
+    };
+
+    onSubmit = () => {
+        this.props.SignIn(this.formData.username,this.formData.password);
+    };
 
     render() {
         let classes = this.props.classes;
+        let fieldsUi = this.props.authentificationUI;
         return (
             <div className={classes.root}>
                 <Grid className={classes.grid} container spacing={0} direction="row" justify="center"
@@ -88,18 +100,24 @@ class Authentification extends Component {
                                     <TextField
                                         id="standard-with-placeholder"
                                         label="Nom d'utilisateur"
+                                        onChange={this.handleFormChange}
+                                        error={fieldsUi.usernameFieldError}
                                         placeholder="Nom d'utilisateur"
                                         className={classes.textField}
                                         margin="normal"
+                                        name="username"
                                     />
                                 <br/>
                                     <TextField
                                         id="standard-with-placeholder"
                                         label="Mot de passe"
                                         type="password"
+                                        error={fieldsUi.passwordFieldError}
                                         placeholder="Mot de passe"
                                         className={classes.textField}
                                         margin="normal"
+                                        onChange={this.handleFormChange}
+                                        name="password"
                                     />
 
                                     <Grid container  direction="row" justify="center"
@@ -127,7 +145,7 @@ class Authentification extends Component {
 
                                 <Grid item xs={12} style={{textAlign:'center',marginTop:'50px'}}>
 
-                                    <Button variant="contained" color="primary" className={classes.button}>
+                                    <Button onClick={this.onSubmit} variant="contained" color="primary" className={classes.button}>
                                         Se connecter
                                     </Button>
                                 </Grid>
@@ -142,11 +160,12 @@ class Authentification extends Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        authentificated: state.authentificated
+        authentification: state.authentification,
+        authentificationUI : state.authentificationUI
     };
 }
 
 export default connect(
     mapStateToProps,
-    {SignedIn}
+    {SignIn, TypingAuthFields}
 )(withTheme(withStyles(styles)(Authentification)));
