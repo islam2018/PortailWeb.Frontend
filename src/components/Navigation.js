@@ -55,7 +55,6 @@ const styles = theme => ({
         borderLeft: `solid 3px ${theme.palette.primary.light}`
     },
     drawer: {
-
         [theme.breakpoints.up('sm')]: {
             width: drawerWidth,
             flexShrink: 0,
